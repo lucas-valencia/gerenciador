@@ -1,0 +1,153 @@
+body {
+    background-color: #eaeaea;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 20px;
+}
+
+.principal {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.formulario label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+.formulario input,
+.formulario select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Estilo base para os botões */
+input[type="submit"], .botao_voltar_cadastro {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+/* Botão de Salvar (já está em seu formulário como submit) */
+input[type="submit"] {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Botão de Voltar */
+.botao_voltar_cadastro {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%; /* Define a largura para ocupar 100% */
+    text-align: center;
+    transition: background-color 0.3s;
+    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+    margin-top: 10px;
+}
+.botao_voltar_cadastro:hover {
+    background-color: #d32f2f;
+}
+
+.erro {
+    color: #ff0000;
+    background-color: #ffe5e5;
+    padding: 10px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.espaco {
+    height: 10px;
+    display: block;
+}
+.menu {
+    width: 300px; /* Defina a largura desejada para o menu */
+    margin: 20px auto; /* Centraliza horizontalmente */
+    text-align: center; /* Centraliza os itens dentro do menu */
+}
+.menu-item {
+    display: block;
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #000;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.menu-item:hover {
+    background-color: #969191;
+}
+.linha_form {
+    display: flex;
+    align-items: flex-start; /* Alinha os itens no topo */
+    margin-top: 10px; /* Espaço entre as linhas */
+}
+
+.linha_form label {
+    flex: 0 0 auto; /* Largura fixa para os labels */
+    margin-right: 10px; /* Menor espaço entre o label e o input */
+}
+
+.linha_form input, select {
+    flex: 0 0 30%; /* Permite que os inputs ocupem o restante do espaço disponível */
+    min-width: 200px; /* Define uma largura mínima para os inputs */
+    margin-right: 20px; /* Espaço entre os inputs */
+}
+.tabela-container {
+    overflow-x: auto; /* Permite rolagem horizontal */
+    margin-top: 20px; /* Espaço acima da tabela */
+}
+
+table {
+    width: 100%; /* A tabela ocupa toda a largura do contêiner */
+    border-collapse: collapse; /* Remove espaços entre as células */
+}
+
+td, th {
+    text-align: left; /* Alinha o texto à esquerda */
+    max-width: 150px; /* Define uma largura máxima para as colunas */
+    overflow: hidden; /* Esconde o texto que ultrapassa a largura */
+    text-overflow: ellipsis; /* Adiciona reticências ao texto cortado */
+    white-space: nowrap; /* Impede a quebra de linha */
+}
+
+.titulo {
+    /*background-color: #ffffff; *//* Cor de fundo para o cabeçalho */
+    font-weight: bold; /* Negrito para os títulos */
+}
+
+
