@@ -17,15 +17,17 @@ Sistema de cadastro e consulta de clientes, conforme solicitado em desafio "hand
 - [ ] Banco de dados em memória (H2 ou outros)
 - [x] Verificação para evitar cadastros duplicados (CPF como referência)
 - [x] FrontEnd (Opcional)
-- [x] Testes unitários (Opicional)
+- [ ] Testes unitários (Opicional)
 
 # 📁 Acesso ao projeto
 
-**Apenas clone o repositório GIT**
+**Por enquanto, clone o repositório GIT**
 
 # 🛠️ Abrir e rodar o projeto
 
-**Ccertifique-se de ter o php mais recente instalado**
+**Certifique-se de ter o php mais recente instalado**
+
+**Certifique-se de ter o php mais recente instalado**
 
 **Via CMD, vá até a pasta "gerenciamento**
 
