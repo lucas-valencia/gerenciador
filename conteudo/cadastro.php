@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $url = "https://viacep.com.br/ws/{$cep}/json/";
 
-            // Tenta obter os dados do CEP
-            $response = @file_get_contents($url); // Use o operador @ para suprimir erros
+            // Obter os dados do CEP
+            $response = @file_get_contents($url);
 
             if ($response === FALSE) {
                 $error_message = "Erro ao buscar informações para o CEP fornecido.";
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $erro[] = $error_message;
                 } else {
 
-                    // Preencha automaticamente os campos com os dados retornados
+                    // Preenche automaticamente os campos com os dados retornados
                     $_SESSION['logradouro'] = $data['logradouro'];
                     $_SESSION['bairro'] = $data['bairro'];
                     $_SESSION['cidade'] = $data['localidade'];
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
-        // Caso o formulário seja enviado, armazene os valores do CEP
+        // Caso o formulário seja enviado, armazena os valores do CEP
         $_SESSION['cep'] = $_POST['cep'];
     }
 }
