@@ -33,7 +33,7 @@ Sistema de cadastro e consulta de clientes, conforme solicitado em desafio "hand
 
 **Execute: php -S localhost:8080**
 
-**Pelo navegador, acesse "localhost"**
+**Pelo navegador, acesse "localhost:8080"**
 
 # :hammer: Funcionalidades do projeto
 
