@@ -10,10 +10,10 @@
 <body>
 
     <h1 class="titulo">GERENCIAMENTO CLIENTES</h1>
-    <div class="menu">
-        <a class="menu-item" href="../index.php?p=cadastro">CADASTRO</a>
+    <div class="menu_inicial">
+        <a class="menu_inicial-item" href="../index.php?p=cadastro">CADASTRO</a>
 
-        <a class="menu-item" href="../index.php?p=consulta">CONSULTA</a>
+        <a class="menu_inicial-item" href="../index.php?p=consulta">CONSULTA</a>
     </div>
 
 </body>

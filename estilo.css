@@ -6,8 +6,7 @@ body {
 }
 
 .principal {
-    width: 100%;
-    max-width: 1200px;
+    width: 95%;
     margin: 0 auto;
     background-color: #FFF;
     padding: 20px;
@@ -18,7 +17,7 @@ body {
 h1 {
     text-align: center;
     font-weight: bold;
-    color: #333;
+    color: #ee6928;
 }
 
 .formulario label {
@@ -37,8 +36,15 @@ h1 {
     font-size: 16px;
 }
 
-/* Estilo base para os botões */
+.botoes_cadastro {
+    display: flex; /* Habilita o flexbox */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin-top: 20px; /* Espaço acima dos botões */
+}
+
 input[type="submit"], .botao_voltar_cadastro {
+    flex: 1; /* Faz os botões ocuparem a mesma largura */
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -51,7 +57,7 @@ input[type="submit"], .botao_voltar_cadastro {
 
 /* Botão de Salvar (já está em seu formulário como submit) */
 input[type="submit"] {
-    background-color: #4CAF50; /* Verde */
+    background-color: #ee6928;
     color: white;
 }
 
@@ -81,38 +87,89 @@ input[type="submit"]:hover {
 }
 
 .erro {
-    color: #ff0000;
-    background-color: #ffe5e5;
+    color: #b30000;
+    background-color: #ffe6e6;
+    border: 1px solid #b30000;
     padding: 10px;
-    border: 1px solid #ff0000;
+    margin-bottom: 15px;
     border-radius: 5px;
-    margin-top: 10px;
+    text-align: center;
 }
 
 .espaco {
     height: 10px;
     display: block;
 }
-.menu {
+.menu_inicial {
     width: 300px; /* Defina a largura desejada para o menu */
     margin: 20px auto; /* Centraliza horizontalmente */
     text-align: center; /* Centraliza os itens dentro do menu */
 }
-.menu-item {
+.menu_inicial-item {
     display: block;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #ee6928;
     margin: 5px 0;
     text-decoration: none;
-    color: #000;
+    font-weight: bold;
+    color: #FFF;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
-.menu-item:hover {
+.menu_inicial-item:hover {
     background-color: #969191;
 }
+.menu_consulta {
+    display: flex;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 20px; /* Espaço acima dos botões */
+}
+
+.menu_consulta-item {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ee6928; /* Cor do botão NOVO CADASTRO */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.menu_consulta-item[href*="inicial"] {
+    background-color: #eb372a; /* Cor vermelha para o botão VOLTAR */
+}
+
+.menu_consulta-item:hover {
+    background-color: #45a049; /* Cor ao passar o mouse sobre NOVO CADASTRO */
+}
+
+.menu_consulta-item[href*="inicial"]:hover {
+    background-color: #d32f2f; /* Cor ao passar o mouse sobre VOLTAR */
+}
+.botao_pesquisar {
+    background-color: #ee6928;
+    color: white;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: background-color 0.3s;
+}
+
+.botao_pesquisar:hover {
+    background-color: #45a049;
+}
+
+
 .linha_form {
     display: flex;
+    flex-wrap: wrap; /* Permite que os itens se ajustem automaticamente */
+    gap: 10px;
+    margin-bottom: 10px;
     align-items: flex-start; /* Alinha os itens no topo */
     margin-top: 10px; /* Espaço entre as linhas */
 }
@@ -124,7 +181,7 @@ input[type="submit"]:hover {
 
 .linha_form input, select {
     flex: 0 0 30%; /* Permite que os inputs ocupem o restante do espaço disponível */
-    min-width: 200px; /* Define uma largura mínima para os inputs */
+    min-width: 50px; /* Define uma largura mínima para os inputs */
     margin-right: 20px; /* Espaço entre os inputs */
 }
 .tabela-container {
@@ -133,21 +190,46 @@ input[type="submit"]:hover {
 }
 
 table {
-    width: 100%; /* A tabela ocupa toda a largura do contêiner */
-    border-collapse: collapse; /* Remove espaços entre as células */
+    width: 90%; /* A tabela ocupa toda a largura do contêiner */
+    /*border-collapse: collapse;*/ /* Remove espaços entre as células */
+    font-size: 12px;
+    margin: 0 auto;
+
+
 }
 
 td, th {
-    text-align: left; /* Alinha o texto à esquerda */
-    max-width: 150px; /* Define uma largura máxima para as colunas */
-    overflow: hidden; /* Esconde o texto que ultrapassa a largura */
-    text-overflow: ellipsis; /* Adiciona reticências ao texto cortado */
-    white-space: nowrap; /* Impede a quebra de linha */
+    text-align: center; /* Alinha o texto à esquerda */
+    max-width: 120px; /* Define uma largura máxima para as colunas */
+    /*
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    white-space: nowrap; */
+}
+
+input[name="numero"] {
+    width: 40px !important; 
+    max-width: 50px !important;
+    min-width: 40px !important;
 }
 
 .titulo {
     /*background-color: #ffffff; *//* Cor de fundo para o cabeçalho */
     font-weight: bold; /* Negrito para os títulos */
 }
+.formulario_pesquisa {
+    display: flex; /* Habilita o flexbox */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    margin: 20px auto; /* Adiciona margem em cima e embaixo */
+    max-width: 30%; /* Garante que o formulário não exceda a largura da tela */
+}
 
-
+.barra_pesquisa {
+    padding: 8px;
+    font-size: 16px;
+    width: 300px; /* Largura do campo de pesquisa */
+    border: 1px solid #ccc; /* Adiciona uma borda */
+    border-radius: 4px; /* Borda arredondada */
+    margin-right: 10px;
+}

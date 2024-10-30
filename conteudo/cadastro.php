@@ -18,7 +18,61 @@ if ($columns) {
 }
 */
 
+
 $erro = [];
+$cep = isset($_SESSION['cep']) ? $_SESSION['cep'] : '';
+$logradouro = isset($_SESSION['logradouro']) ? $_SESSION['logradouro'] : '';
+$bairro = isset($_SESSION['bairro']) ? $_SESSION['bairro'] : '';
+$cidade = isset($_SESSION['cidade']) ? $_SESSION['cidade'] : '';
+$estado = isset($_SESSION['estado']) ? $_SESSION['estado'] : '';
+
+// Carrega os valores já preenchidos nos campos
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['pesquisar_cep'])) {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        if (isset($_POST['pesquisar_cep'])) {
+            foreach ($_POST as $chave => $valor)
+                $_SESSION[$chave] = $valor;
+        }
+
+        $cep = preg_replace('/[^0-9]/', '', $_POST['cep']); // Remove caracteres não numéricos
+
+        // Verifica se o CEP é vazio ou não tem 8 dígitos
+        if (empty($cep) || strlen($cep) !== 8) {
+            $error_message = "Por favor, insira um CEP válido com 8 dígitos.";
+            $erro[] = $error_message;
+        } else {
+            $url = "https://viacep.com.br/ws/{$cep}/json/";
+
+            // Tenta obter os dados do CEP
+            $response = @file_get_contents($url); // Use o operador @ para suprimir erros
+
+            if ($response === FALSE) {
+                $error_message = "Erro ao buscar informações para o CEP fornecido.";
+                $erro[] = $error_message;
+            } else {
+                $data = json_decode($response, true);
+                if (isset($data['erro'])) {
+                    $error_message = "CEP não encontrado.";
+                    $erro[] = $error_message;
+                } else {
+
+                    // Preencha automaticamente os campos com os dados retornados
+                    $_SESSION['logradouro'] = $data['logradouro'];
+                    $_SESSION['bairro'] = $data['bairro'];
+                    $_SESSION['cidade'] = $data['localidade'];
+                    $_SESSION['estado'] = $data['uf'];
+                }
+            }
+        }
+    } else {
+        // Caso o formulário seja enviado, armazene os valores do CEP
+        $_SESSION['cep'] = $_POST['cep'];
+    }
+}
 
 if (isset($_POST['confirmar'])) {
 
@@ -35,19 +89,26 @@ if (isset($_POST['confirmar'])) {
     // 2 - Validação dos dados
 
     if (strlen($_SESSION['nome']) == 0)
-        $erro[] = "Preecha o nome!";
+        $erro[] = "Preencha o nome!";
 
     if (strlen($_SESSION['sobrenome']) == 0)
-        $erro[] = "Preecha o sobrenome!";
+        $erro[] = "Preencha o sobrenome!";
 
-    if (validaCPF($_SESSION['cpf']) == false)
-        $erro[] = "Informe um CPF válido!";
+    $cpfValidacao = validaCPF($_SESSION['cpf']);
+    if ($cpfValidacao !== true) {
+        $erro[] = $cpfValidacao; // Adiciona a mensagem específica de erro ao array de erros
+    }
 
     if (validaData($_SESSION['data_nascimento']) == true)
         $erro[] = "Informe uma data válida!";
 
     if (strlen($_SESSION['genero']) == "")
         $erro[] = "Preecha o gênero!";
+
+    $cepValidacao = validaCEP($_SESSION['cep']);
+    if ($cepValidacao !== true) {
+        $erro[] = $cepValidacao;
+    }
 
     if (strlen($_SESSION['logradouro']) == 0)
         $erro[] = "Preecha o logradouro!";
@@ -61,8 +122,8 @@ if (isset($_POST['confirmar'])) {
     if (strlen($_SESSION['estado']) == 0)
         $erro[] = "Preecha o estado!";
 
-    if (strlen($_SESSION['celular']) != 11)
-        $erro[] = "Preecha o número de celular com 11 dígitos: DD000000000";
+    if (strlen($_SESSION['celular']) != 14)
+        $erro[] = "Preecha o número de celular conforme o requisito: (DD)XXXXX-XXXX";
 
     if (substr_count($_SESSION['email'], '@') != 1 || substr_count($_SESSION['email'], '.') < 1)
         $erro[] = "Preencha o e-mail corretamente!";
@@ -125,7 +186,8 @@ if (isset($_POST['confirmar'])) {
     */
     #Inserção com statement
     if (count($erro) == 0) {
-
+        $_SESSION['cpf'] = preg_replace('/[^0-9]/', '', $_POST['cpf']);
+        $_SESSION['cep'] = preg_replace('/[^0-9]/', '', $_POST['cep']);
         $statement = $dblite->prepare("INSERT INTO clientes (
             nome,
             sobrenome,
@@ -212,18 +274,18 @@ if (count($erro) > 0) {
 <form action="../index.php?p=cadastro" method="POST" class="formulario">
     <div class="linha_form">
         <label for="nome">Nome:</label>
-        <input name="nome" value="<?php echo isset($_SESSION['nome']) ? htmlspecialchars($_SESSION['nome']) : ''; ?>" required type="text">
-        
+        <input placeholder="Ex.: Maria" name="nome" value="<?php echo isset($_SESSION['nome']) ? htmlspecialchars($_SESSION['nome']) : ''; ?>" type="text">
+
         <label for="sobrenome">Sobrenome:</label>
-        <input name="sobrenome" value="<?php echo isset($_SESSION['sobrenome']) ? htmlspecialchars($_SESSION['sobrenome']) : ''; ?>" required type="text">
+        <input placeholder="Ex.: Silva" name="sobrenome" value="<?php echo isset($_SESSION['sobrenome']) ? htmlspecialchars($_SESSION['sobrenome']) : ''; ?>" type="text">
     </div>
     <p class="espaco"></p>
     <div class="linha_form">
         <label for="cpf">CPF:</label>
-        <input name="cpf" value="<?php echo isset($_SESSION['cpf']) ? htmlspecialchars($_SESSION['cpf']) : ''; ?>" required type="number">
+        <input placeholder="Apenas números" name="cpf" value="<?php echo isset($_SESSION['cpf']) ? htmlspecialchars($_SESSION['cpf']) : ''; ?>" type="">
 
         <label for="data_nascimento">Data de Nascimento:</label>
-        <input name="data_nascimento" value="<?php echo isset($_SESSION['data_nascimento']) ? htmlspecialchars($_SESSION['data_nascimento']) : ''; ?>" required type="date">
+        <input name="data_nascimento" value="<?php echo isset($_SESSION['data_nascimento']) ? htmlspecialchars($_SESSION['data_nascimento']) : ''; ?>" type="date">
     </div>
     <p class="espaco"></p>
     <div class="linha_form">
@@ -236,38 +298,42 @@ if (count($erro) > 0) {
         </select>
 
         <label for="cep">CEP:</label>
-        <input name="cep" value="<?php echo isset($_SESSION['cep']) ? htmlspecialchars($_SESSION['cep']) : ''; ?>" required type="number">
+        <input placeholder="Apenas números" name="cep" value="<?php echo isset($_SESSION['cep']) ? htmlspecialchars($_SESSION['cep']) : ''; ?>" id="cep" type="text" pattern="\d{8}" title="Digite 8 dígitos">
+        <button type="submit" name="pesquisar_cep" class="botao_pesquisar" onclick="this.innerHTML='Pesquisando...';">Pesquisar</button>
     </div>
     <p class="espaco"></p>
     <div class="linha_form">
         <label for="logradouro">Logradouro:</label>
-        <input name="logradouro" value="<?php echo isset($_SESSION['logradouro']) ? htmlspecialchars($_SESSION['logradouro']) : ''; ?>" required type="text">
+        <input id="logradouro" name="logradouro" value="<?php echo isset($_SESSION['logradouro']) ? htmlspecialchars($_SESSION['logradouro']) : ''; ?>" type="text">
+
+        <label for="numero">N°:</label>
+        <input id="numero" name="numero" value="<?php echo isset($_SESSION['numero']) ? htmlspecialchars($_SESSION['numero']) : ''; ?>" type="number">
 
         <label for="bairro">Bairro:</label>
-        <input name="bairro" value="<?php echo isset($_SESSION['bairro']) ? htmlspecialchars($_SESSION['bairro']) : ''; ?>" required type="text">
+        <input id="bairro" name="bairro" value="<?php echo isset($_SESSION['bairro']) ? htmlspecialchars($_SESSION['bairro']) : ''; ?>" type="text">
     </div>
     <p class="espaco"></p>
     <div class="linha_form">
         <label for="cidade">Cidade:</label>
-        <input name="cidade" value="<?php echo isset($_SESSION['cidade']) ? htmlspecialchars($_SESSION['cidade']) : ''; ?>" required type="text">
+        <input id="cidade" name="cidade" value="<?php echo isset($_SESSION['cidade']) ? htmlspecialchars($_SESSION['cidade']) : ''; ?>" type="text">
         <p class="espaco"></p>
 
         <label for="estado">Estado:</label>
-        <input name="estado" value="<?php echo isset($_SESSION['estado']) ? htmlspecialchars($_SESSION['estado']) : ''; ?>" required type="text">
+        <input id="estado" name="estado" value="<?php echo isset($_SESSION['estado']) ? htmlspecialchars($_SESSION['estado']) : ''; ?>" type="text">
     </div>
     <p class="espaco"></p>
 
     <div class="linha_form">
         <label for="celular">Celular:</label>
-        <input name="celular" value="<?php echo isset($_SESSION['celular']) ? htmlspecialchars($_SESSION['celular']) : ''; ?>" required type="number">
+        <input placeholder="(DD)XXXX-XXXX" name="celular" value="<?php echo isset($_SESSION['celular']) ? htmlspecialchars($_SESSION['celular']) : ''; ?>" type="tel" pattern="[()][0-9]{2}-[0-9]{5}-[-][0-9]{4}">
 
         <label for="email">E-mail:</label>
-        <input name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" required type="email">
+        <input name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" type="email">
     </div>
-        <p class="espaco"></p>
-
-    <input value="Salvar" name="confirmar" type="submit">
-    <a href="../index.php" class="botao_voltar_cadastro">Voltar</a>
-
+    <p class="espaco"></p>
+    <div class="botoes_cadastro">
+        <input value="Salvar" name="confirmar" type="submit">
+        <a href="../index.php" class="botao_voltar_cadastro">Voltar</a>
+    </div>
 
 </form>

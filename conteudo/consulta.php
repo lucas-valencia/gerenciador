@@ -26,20 +26,43 @@ $sqlite_query = $dblite->query("SELECT * FROM clientes") or die($dblite->lastErr
 #var_dump($sqlite_query);
 
 ?>
+<?php if (isset($error_message)): ?>
+    <div class="error"><?php echo $error_message; ?></div>
+<?php endif; ?>
 
 <h1>CLIENTES</h1>
-<div class="menu">
-        <a class="menu-item" href="../index.php?p=cadastro">CADASTRO</a>
 
-        <a class="menu-item" href="../index.php?p=consulta">CONSULTA</a>
+<div class="menu_consulta">
+    <a class="menu_consulta-item" href="../index.php?p=cadastro">NOVO CADASTRO</a>
 
-        <a class="menu-item" href="../index.php?p=inicial">VOLTAR</a>
-    </div>
+    <a class="menu_consulta-item" href="../index.php?p=inicial">VOLTAR</a>
+</div>
 <p class="espaco"></p>
+<!-- Barra de Pesquisa -->
+<form method="get" action="../index.php" class="formulario_pesquisa">
+    <input type="hidden" name="p" value="consulta"> <!-- Adiciona o parâmetro para redirecionar para consulta.php -->
+    <input type="text" name="search" placeholder="Buscar cliente..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" class="barra_pesquisa">
+    <input type="submit" value="Pesquisar">
+</form>
+<?php
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+// Consulta SQL com filtro condicional para a pesquisa
+$query = "SELECT * FROM clientes";
+if (!empty($search)) {
+    $query .= " WHERE nome LIKE '%$search%' OR sobrenome LIKE '%$search%' OR cpf LIKE '%$search%' 
+                OR genero LIKE '%$search%' OR cep LIKE '%$search%' OR logradouro LIKE '%$search%' 
+                OR bairro LIKE '%$search%' OR cidade LIKE '%$search%' OR estado LIKE '%$search%' 
+                OR celular LIKE '%$search%' OR email LIKE '%$search%'";
+}
+
+$sqlite_query = $dblite->query($query) or die($dblite->lastErrorMsg());
+?>
+
 <div class="tabela-container"> <!-- Contêiner para rolagem -->
     <table border="1" cellpadding="10">
         <tr class="titulo">
-            <td>ID</td>
+            <td>Ação</td>
             <td>Nome</td>
             <td>Sobrenome</td>
             <td>CPF</td>
@@ -52,7 +75,6 @@ $sqlite_query = $dblite->query("SELECT * FROM clientes") or die($dblite->lastErr
             <td>Estado</td>
             <td>Celular</td>
             <td>E-mail</td>
-            <td>Ação</td>
         </tr>
 
         <?php
@@ -60,7 +82,11 @@ $sqlite_query = $dblite->query("SELECT * FROM clientes") or die($dblite->lastErr
             do {
         ?>
                 <tr>
-                    <td><?php echo $linha['codigo']; ?></td>
+                    <td>
+                        <a href="../index.php?p=editar&cliente=<?php echo $linha['codigo']; ?>">Editar</a><br>
+                        <a href="javascript: if(confirm('Deletar usuário <?php echo $linha['nome']; ?>?'))
+                    location.href='../index.php?p=deletar&cliente=<?php echo $linha['codigo']; ?>?';">Deletar</a>
+                    </td>
                     <td><?php echo $linha['nome']; ?></td>
                     <td><?php echo $linha['sobrenome']; ?></td>
                     <td><?php echo $linha['cpf']; ?></td>
@@ -77,11 +103,6 @@ $sqlite_query = $dblite->query("SELECT * FROM clientes") or die($dblite->lastErr
                     <td><?php echo $linha['estado']; ?></td>
                     <td><?php echo $linha['celular']; ?></td>
                     <td><?php echo $linha['email']; ?></td>
-                    <td>
-                        <a href="../index.php?p=editar&cliente=<?php echo $linha['codigo']; ?>">Editar</a>|
-                        <a href="javascript: if(confirm('Deletar usuário <?php echo $linha['nome']; ?>'))
-                    location.href='../index.php?p=deletar&cliente=<?php echo $linha['codigo']; ?>?';">Deletar</a>
-                    </td>
                 </tr>
         <?php } while ($linha = $sqlite_query->fetchArray());
         } else {
