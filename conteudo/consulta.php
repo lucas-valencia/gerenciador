@@ -21,9 +21,7 @@ if ($columns) {
 */
 
 $sqlite_query = $dblite->query("SELECT * FROM clientes") or die($dblite->lastErrorMsg());
-#$linha = $sqlite_query->fetchArray();
-#var_dump($linha);
-#var_dump($sqlite_query);
+#$linha = $sqlite_query->fetchArray(); // Iniciar variável apenas no loop, para não pular o primeiro usuario cadastrado!
 
 ?>
 <?php if (isset($error_message)): ?>
@@ -59,7 +57,7 @@ if (!empty($search)) {
 $sqlite_query = $dblite->query($query) or die($dblite->lastErrorMsg());
 ?>
 
-<div class="tabela-container"> <!-- Contêiner para rolagem -->
+<div class="tabela-container"> <!-- Contêiner para rolagem, caso necessário -->
     <table border="1" cellpadding="10">
         <tr class="titulo">
             <td>Ação</td>

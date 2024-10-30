@@ -27,7 +27,7 @@ Sistema de cadastro e consulta de clientes, conforme solicitado em desafio "hand
 
 **Certifique-se de ter o php mais recente instalado**
 
-**Certifique-se de ter o php mais recente instalado**
+**Na pasta do PHP, abra o php.ini e habilite o openssl**
 
 **Via CMD, vá até a pasta "gerenciamento**
 

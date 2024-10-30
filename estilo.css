@@ -37,14 +37,14 @@ h1 {
 }
 
 .botoes_cadastro {
-    display: flex; /* Habilita o flexbox */
-    justify-content: center; /* Centraliza os itens horizontalmente */
-    gap: 10px; /* Espaçamento entre os botões */
-    margin-top: 20px; /* Espaço acima dos botões */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 input[type="submit"], .botao_voltar_cadastro {
-    flex: 1; /* Faz os botões ocuparem a mesma largura */
+    flex: 1;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -54,8 +54,6 @@ input[type="submit"], .botao_voltar_cadastro {
     display: inline-block;
     transition: background-color 0.3s;
 }
-
-/* Botão de Salvar (já está em seu formulário como submit) */
 input[type="submit"] {
     background-color: #ee6928;
     color: white;
@@ -64,10 +62,8 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #45a049;
 }
-
-/* Botão de Voltar */
 .botao_voltar_cadastro {
-    background-color: #f44336; /* Vermelho */
+    background-color: #f44336;
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -76,10 +72,10 @@ input[type="submit"]:hover {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    width: 100%; /* Define a largura para ocupar 100% */
+    width: 100%;
     text-align: center;
     transition: background-color 0.3s;
-    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+    box-sizing: border-box;
     margin-top: 10px;
 }
 .botao_voltar_cadastro:hover {
@@ -101,9 +97,9 @@ input[type="submit"]:hover {
     display: block;
 }
 .menu_inicial {
-    width: 300px; /* Defina a largura desejada para o menu */
-    margin: 20px auto; /* Centraliza horizontalmente */
-    text-align: center; /* Centraliza os itens dentro do menu */
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
 }
 .menu_inicial-item {
     display: block;
@@ -121,9 +117,9 @@ input[type="submit"]:hover {
 }
 .menu_consulta {
     display: flex;
-    justify-content: center; /* Centraliza os itens horizontalmente */
-    gap: 10px; /* Espaço entre os botões */
-    margin-top: 20px; /* Espaço acima dos botões */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .menu_consulta-item {
@@ -138,15 +134,15 @@ input[type="submit"]:hover {
 }
 
 .menu_consulta-item[href*="inicial"] {
-    background-color: #eb372a; /* Cor vermelha para o botão VOLTAR */
+    background-color: #eb372a;
 }
 
 .menu_consulta-item:hover {
-    background-color: #45a049; /* Cor ao passar o mouse sobre NOVO CADASTRO */
+    background-color: #45a049;
 }
 
 .menu_consulta-item[href*="inicial"]:hover {
-    background-color: #d32f2f; /* Cor ao passar o mouse sobre VOLTAR */
+    background-color: #d32f2f;
 }
 .botao_pesquisar {
     background-color: #ee6928;
@@ -167,30 +163,30 @@ input[type="submit"]:hover {
 
 .linha_form {
     display: flex;
-    flex-wrap: wrap; /* Permite que os itens se ajustem automaticamente */
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
-    align-items: flex-start; /* Alinha os itens no topo */
-    margin-top: 10px; /* Espaço entre as linhas */
+    align-items: flex-start;
+    margin-top: 10px;
 }
 
 .linha_form label {
-    flex: 0 0 auto; /* Largura fixa para os labels */
-    margin-right: 10px; /* Menor espaço entre o label e o input */
+    flex: 0 0 auto;
+    margin-right: 10px;
 }
 
 .linha_form input, select {
-    flex: 0 0 30%; /* Permite que os inputs ocupem o restante do espaço disponível */
-    min-width: 50px; /* Define uma largura mínima para os inputs */
-    margin-right: 20px; /* Espaço entre os inputs */
+    flex: 0 0 30%;
+    min-width: 50px;
+    margin-right: 20px;
 }
 .tabela-container {
-    overflow-x: auto; /* Permite rolagem horizontal */
+    overflow-x: auto; /* Rolagem horizontal */
     margin-top: 20px; /* Espaço acima da tabela */
 }
 
 table {
-    width: 90%; /* A tabela ocupa toda a largura do contêiner */
+    width: 90%;
     /*border-collapse: collapse;*/ /* Remove espaços entre as células */
     font-size: 12px;
     margin: 0 auto;
@@ -199,13 +195,8 @@ table {
 }
 
 td, th {
-    text-align: center; /* Alinha o texto à esquerda */
-    max-width: 120px; /* Define uma largura máxima para as colunas */
-    /*
-    overflow: hidden;
-    text-overflow: ellipsis;
-    
-    white-space: nowrap; */
+    text-align: center;
+    max-width: 120px;
 }
 
 input[name="numero"] {
@@ -215,13 +206,13 @@ input[name="numero"] {
 }
 
 .titulo {
-    /*background-color: #ffffff; *//* Cor de fundo para o cabeçalho */
+    background-color: #ffffff; /* Cor de fundo para o cabeçalho */
     font-weight: bold; /* Negrito para os títulos */
 }
 .formulario_pesquisa {
-    display: flex; /* Habilita o flexbox */
+    display: flex;
     justify-content: center; /* Centraliza os itens horizontalmente */
-    margin: 20px auto; /* Adiciona margem em cima e embaixo */
+    margin: 20px auto;
     max-width: 30%; /* Garante que o formulário não exceda a largura da tela */
 }
 

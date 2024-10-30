@@ -26,13 +26,13 @@ $bairro = isset($_SESSION['bairro']) ? $_SESSION['bairro'] : '';
 $cidade = isset($_SESSION['cidade']) ? $_SESSION['cidade'] : '';
 $estado = isset($_SESSION['estado']) ? $_SESSION['estado'] : '';
 
-// Carrega os valores já preenchidos nos campos
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['pesquisar_cep'])) {
         if (!isset($_SESSION)) {
             session_start();
         }
-
+// Carrega os valores já preenchidos nos campos
         if (isset($_POST['pesquisar_cep'])) {
             foreach ($_POST as $chave => $valor)
                 $_SESSION[$chave] = $valor;

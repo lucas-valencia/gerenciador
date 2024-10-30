@@ -19,22 +19,6 @@ if (!$sqlite_query || !$sqlite_query->fetchArray(SQLITE3_ASSOC)) {
     $sqlite_query->reset();
     $linha = $sqlite_query->fetchArray(SQLITE3_ASSOC);
 
-    /* Listagem colunas
-echo "<h2>Colunas da tabela 'clientes':</h2>";
-#var_dump($dblite->query("SELECT * FROM clientes"));
-
-$columns = $dblite->query("PRAGMA table_info(clientes)");
-if ($columns) {
-    echo "<ul>";
-    while ($column = $columns->fetchArray(SQLITE3_ASSOC)) {
-        echo "<li>" . htmlspecialchars($column['name']) . "</li>";
-    }
-    echo "</ul>";
-} else {
-    echo "Erro ao obter informações das colunas: " . $dblite->lastErrorMsg();
-}
-*/
-
     $erro = [];
 
     if (isset($_POST['confirmar'])) {
@@ -85,61 +69,6 @@ if ($columns) {
             $erro[] = "Preencha o e-mail corretamente!";
 
         // 3 - Inserção no banco e redirecionamento
-        /* Inserção com query
-        if(count($erro ) == 0) {
-            
-            $sql_code = "INSERT INTO clientes (
-            nome, 
-            sobrenome, 
-            cpf, 
-            data_nascimento, 
-            genero, 
-            cep, 
-            logradouro, 
-            bairro, 
-            cidade, 
-            estado, 
-            celular, 
-            email)
-            VALUES(
-            '$_SESSION[nome]',
-            '$_SESSION[sobrenome]',
-            '$_SESSION[cpf]',
-            '$_SESSION[data_nascimento]',
-            '$_SESSION[genero]',
-            '$_SESSION[cep]',
-            '$_SESSION[logradouro]',
-            '$_SESSION[bairro]',
-            '$_SESSION[cidade]',
-            '$_SESSION[estado]',
-            '$_SESSION[celular]',
-            '$_SESSION[email]'
-            )";
-
-            $confirma = $dblite->query($sql_code) or die($dblite->lastErrorCode());
-
-            if ($confirma){
-                unset($_SESSION['nome'],
-                $_SESSION['sobrenome'],
-                $_SESSION['cpf'],
-                $_SESSION['data_nascimento'],
-                $_SESSION['genero'],
-                $_SESSION['cep'],
-                $_SESSION['logradouro'],
-                $_SESSION['bairro'],
-                $_SESSION['cidade'],
-                $_SESSION['estado'],
-                $_SESSION['celular'],
-                $_SESSION['email']
-                );
-
-                echo "<script> location.href='index.php?p=cadastro'; </script>";
-            }else
-                $erro[] = $confirma;
-
-        }
-
-    */
         #Inserção com statement
         if (count($erro) == 0) {
 
@@ -223,7 +152,7 @@ if ($columns) {
 
 ?>
 
-    <h1>CADASTRO DE CLIENTE</h1>
+    <h1>EDITAR CLIENTE</h1>
 
     <?php
 
