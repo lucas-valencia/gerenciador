@@ -1,6 +1,7 @@
 <?php
 
-$dblite = new SQLite3(__DIR__ . '../db.db');
+//$dblite = new SQLite3(__DIR__ . '../db.db');
+$dblite = new SQLite3('sqlite:api/db.db');
 #$dblite = new SQLite3('db.db');
 /* Teste conexão
 if (!$dblite) {
